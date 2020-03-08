@@ -43,7 +43,7 @@ class ViewController: UIViewController {
         let dweight = Double(weight.text!)
         dheight = dheight! / 100
         dheight = dheight! * dheight!
-        let bmi = String(dweight! / dheight!)
+        let bmi = String(round((dweight! / dheight!) * 10)/10)
         bmiText.text = ("あなたのBMIは" + bmi + "です")
     }
     
