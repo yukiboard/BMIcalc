@@ -14,6 +14,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var height: UITextField!
     @IBOutlet weak var weight: UITextField!
     @IBOutlet weak var bmiText: UILabel!
+    @IBOutlet weak var heightErrorMsg: UILabel!
+    @IBOutlet weak var weightErrorMsg: UILabel!
+    
+    final class messageConst{
+        static let heightEmptyError = "身長が入力されていません。"
+        static let weightEmptyError = "体重が入力されていません。"
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,11 +31,33 @@ class ViewController: UIViewController {
     
     
     @IBAction func button(_ sender: Any) {
-        let dheight = Double(height.text!)
+        heightErrorMsg.text=""
+        weightErrorMsg.text=""
+        bmiText.text=""
+        
+        if(validation()){
+            return
+        }
+        
+        var dheight = Double(height.text!)
         let dweight = Double(weight.text!)
-        let dheight2 = dheight! * dheight!
-        let bmi = String(dweight! / dheight2)
+        dheight = dheight! / 100
+        dheight = dheight! * dheight!
+        let bmi = String(dweight! / dheight!)
         bmiText.text = ("あなたのBMIは" + bmi + "です")
+    }
+    
+    private func validation() -> Bool{
+        var result: Bool = false
+        if(height.text==""){
+            heightErrorMsg.text=messageConst.heightEmptyError
+            result=true
+        }
+        if(weight.text==""){
+            weightErrorMsg.text=messageConst.weightEmptyError
+            result=true
+        }
+        return result
     }
     
 }
